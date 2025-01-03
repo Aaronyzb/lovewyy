@@ -116,7 +116,7 @@
 <body>
     <div class="container home-page">
         <h1>这是独属于wyy的页面</h1>
-        <button onclick="showLovePage()"><span>❤️ </span>Open the Love Page</button>
+        <button id="openLovePageButton"><span>❤️ </span>Open the Love Page</button>
     </div>
     <div class="container love-page">
         <p class="special-day">今天是我们在一起的第<span class="number" id="days-count">0</span>天</p>
@@ -131,39 +131,39 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Function to calculate the number of days from a given start date to today
-            function calculateDays(startDate) {
-                const start = new Date(startDate);
-                const today = new Date();
-                const diffTime = Math.abs(today - start);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                return diffDays;
-            }
+        // Function to calculate the number of days from a given start date to today
+        function calculateDays(startDate) {
+            const start = new Date(startDate);
+            const today = new Date();
+            const diffTime = Math.abs(today - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
 
-            // Function to show the love page
-            function showLovePage() {
-                // Hide the home page with a fade-out effect
-                document.querySelector('.home-page').style.opacity = '0';
+        // Function to show the love page
+        function showLovePage() {
+            // Hide the home page with a fade-out effect
+            document.querySelector('.home-page').style.opacity = '0';
+            setTimeout(() => {
+                document.querySelector('.home-page').style.display = 'none';
+                // Show the love page with a fade-in effect
+                document.querySelector('.love-page').style.display = 'flex';
                 setTimeout(() => {
-                    document.querySelector('.home-page').style.display = 'none';
-                    // Show the love page with a fade-in effect
-                    document.querySelector('.love-page').style.display = 'flex';
-                    setTimeout(() => {
-                        document.querySelector('.love-page').style.opacity = '1';
-                        // Change the background color
-                        document.body.style.background = 'linear-gradient(135deg, #ffccff 25%, #ff99ff 50%, #ff66ff 75%)';
-                    }, 10);
-                }, 500);
-                
-                // Calculate and set the number of days
-                const startDate = '2024-04-01'; // Replace with the actual start date
-                const daysCount = calculateDays(startDate);
-                document.getElementById('days-count').textContent = daysCount;
-            }
+                    document.querySelector('.love-page').style.opacity = '1';
+                    // Change the background color
+                    document.body.style.background = 'linear-gradient(135deg, #ffccff 25%, #ff99ff 50%, #ff66ff 75%)';
+                }, 10);
+            }, 500);
 
-            // Attach the showLovePage function to the button
-            document.querySelector('button').addEventListener('click', showLovePage);
+            // Calculate and set the number of days
+            const startDate = '2024-03-31'; // Replace with the actual start date
+            const daysCount = calculateDays(startDate);
+            document.getElementById('days-count').textContent = daysCount;
+        }
+
+        // Ensure DOM is fully loaded before attaching event listener
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('openLovePageButton').addEventListener('click', showLovePage);
         });
     </script>
 </body>
