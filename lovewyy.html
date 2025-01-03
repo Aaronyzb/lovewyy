@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Heart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ccffcc 25%, #99ff99 50%, #66ff66 75%);
+            transition: background 0.5s, opacity 1s;
+        }
+        .container {
+            text-align: center;
+            transition: opacity 1s;
+        }
+        .container h1 {
+            color: #333;
+        }
+        .container button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #ff6666;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .container button:hover {
+            background-color: #ff3333;
+            transform: scale(1.05);
+        }
+        .love-page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+            opacity: 0;
+        }
+        .heart {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            background-color: red;
+            transform: rotate(-45deg);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .heart::before,
+        .heart::after {
+            content: "";
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: red;
+            position: absolute;
+        }
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+        .heart::after {
+            left: 50px;
+            top: 0;
+        }
+        .text {
+            color: #fff;
+            font-family: 'Pacifico', cursive;
+        }
+        .text h1 {
+            margin: 0;
+            color: #ff0000;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .text p {
+            margin: 5px 0;
+            color: #333333;
+            font-size: 1.2em;
+        }
+        .special-day {
+            color: #ff0000;
+            font-size: 1.8em;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .special-day .number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 20px;
+            color: #fff;
+            font-size: 0.9em;
+        }
+        .footer a {
+            color: #ff0000;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container home-page">
+        <h1>这是独属于wyy的页面</h1>
+        <button onclick="showLovePage()"><span>❤️ </span>Open the Love Page</button>
+    </div>
+    <div class="container love-page">
+        <p class="special-day">今天是我们在一起的第<span class="number" id="days-count">0</span>天</p>
+        <div class="heart"></div>
+        <div class="text">
+            <h1>yzb love wyy</h1>
+            <p>wyy酱加油</p>
+        </div>
+        <div class="footer">
+            <p>Made with ❤️ by <a href="https://github.com/Aaronyzb" target="_blank">Aaronyzb</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to calculate the number of days from a given start date to today
+        function calculateDays(startDate) {
+            const start = new Date(startDate);
+            const today = new Date();
+            const diffTime = Math.abs(today - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+
+        // Function to show the love page
+        function showLovePage() {
+            // Hide the home page with a fade-out effect
+            document.querySelector('.home-page').style.opacity = '0';
+            setTimeout(() => {
+                document.querySelector('.home-page').style.display = 'none';
+                // Show the love page with a fade-in effect
+                document.querySelector('.love-page').style.display = 'flex';
+                setTimeout(() => {
+                    document.querySelector('.love-page').style.opacity = '1';
+                    // Change the background color
+                    document.body.style.background = 'linear-gradient(135deg, #ffccff 25%, #ff99ff 50%, #ff66ff 75%)';
+                }, 10);
+            }, 500);
+            
+            // Calculate and set the number of days
+            const startDate = '2024-04-01'; // Replace with the actual start date
+            const daysCount = calculateDays(startDate);
+            document.getElementById('days-count').textContent = daysCount;
+        }
+    </script>
+</body>
+</html>
