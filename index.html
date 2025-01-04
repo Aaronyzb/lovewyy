@@ -131,11 +131,19 @@
     </div>
 
     <script>
-        // Function to calculate the number of days from a given start date to today
+        // Function to calculate the number of days from a given start date to today in Beijing Time (UTC+8)
         function calculateDays(startDate) {
             const start = new Date(startDate);
-            const today = new Date();
-            const diffTime = Math.abs(today - start);
+
+            // Get the current date and time in UTC
+            const now = new Date();
+
+            // Convert the current date and time to Beijing Time (UTC+8)
+            const beijingOffset = 8 * 60; // Offset in minutes for UTC+8
+            const localOffset = now.getTimezoneOffset(); // Local timezone offset in minutes
+            const beijingTime = new Date(now.getTime() + (beijingOffset + localOffset) * 60 * 1000);
+
+            const diffTime = Math.abs(beijingTime - start);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             return diffDays;
         }
@@ -156,7 +164,7 @@
             }, 500);
 
             // Calculate and set the number of days
-            const startDate = '2024-03-31'; // Replace with the actual start date
+            const startDate = '2024-04-01'; // Replace with the actual start date
             const daysCount = calculateDays(startDate);
             document.getElementById('days-count').textContent = daysCount;
         }
