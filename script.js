@@ -2,7 +2,7 @@
   'use strict';
 
   // 纪念日：如需更换，只修改下面这一行即可。
-  const LOVE_STARTED_AT = new Date('2022-01-01T00:00:00+08:00');
+  const LOVE_STARTED_AT = new Date('2024-03-31T00:00:00+08:00');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const $ = (selector, parent = document) => parent.querySelector(selector);
