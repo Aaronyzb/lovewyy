@@ -1,178 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Heart</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #ccffcc 25%, #99ff99 50%, #66ff66 75%);
-            transition: background 0.5s, opacity 1s;
-        }
-        .container {
-            text-align: center;
-            transition: opacity 1s;
-        }
-        .container h1 {
-            color: #333;
-        }
-        .container button {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            color: #fff;
-            background-color: #ff6666;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .container button:hover {
-            background-color: #ff3333;
-            transform: scale(1.05);
-        }
-        .love-page {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            height: 100%;
-            opacity: 0;
-        }
-        .heart {
-            width: 100px;
-            height: 100px;
-            position: relative;
-            background-color: red;
-            transform: rotate(-45deg);
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .heart::before,
-        .heart::after {
-            content: "";
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: red;
-            position: absolute;
-        }
-        .heart::before {
-            top: -50px;
-            left: 0;
-        }
-        .heart::after {
-            left: 50px;
-            top: 0;
-        }
-        .text {
-            color: #fff;
-            font-family: 'Pacifico', cursive;
-        }
-        .text h1 {
-            margin: 0;
-            color: #ff0000;
-            font-size: 2em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        .text p {
-            margin: 5px 0;
-            color: #333333;
-            font-size: 1.2em;
-        }
-        .special-day {
-            color: #ff0000;
-            font-size: 1.8em;
-            margin-bottom: 40px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        .special-day .number {
-            font-size: 2em;
-            font-weight: bold;
-        }
-        .footer {
-            margin-top: 20px;
-            color: #fff;
-            font-size: 0.9em;
-        }
-        .footer a {
-            color: #ff0000;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2b0c1c">
+  <meta name="description" content="写给 WYY 的一封漫长情书。">
+  <title>WYY · 我们的故事</title>
+  <link rel="preload" href="assets/flower-sea.png" as="image">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="container home-page">
-        <h1>这是独属于wyy的页面</h1>
-        <button id="openLovePageButton"><span>❤️ </span>Open the Love Page</button>
+<body class="locked">
+  <canvas id="dreamCanvas" aria-hidden="true"></canvas>
+
+  <div class="opening" id="opening">
+    <div class="opening-stars" aria-hidden="true"></div>
+    <div class="envelope-wrap">
+      <div class="eyebrow">A LITTLE UNIVERSE FOR</div>
+      <div class="opening-name">WYY</div>
+      <div class="envelope" aria-hidden="true">
+        <span class="seal">Y</span>
+      </div>
+      <p>有一封写了很久很久的信，想亲手交给你。</p>
+      <button class="open-letter" id="openLetter" type="button"><span>拆开这封信</span><i>♡</i></button>
+      <small>请把声音打开一点点</small>
     </div>
-    <div class="container love-page">
-        <p class="special-day">今天是我们在一起的第<span class="number" id="days-count">0</span>天</p>
-        <div class="heart"></div>
-        <div class="text">
-            <h1>yzb love wyy</h1>
-            <p>wyy酱加油</p>
+  </div>
+
+  <header class="topbar" id="topbar">
+    <a class="monogram" href="#home" aria-label="回到开头">Y<span>♡</span>W</a>
+    <nav aria-label="页面导航">
+      <a href="#story">故事</a>
+      <a href="#memories">回忆</a>
+      <a href="#letter">情书</a>
+    </nav>
+    <button class="sound-toggle" id="soundToggle" type="button" aria-label="播放背景旋律" aria-pressed="false">
+      <span class="sound-bars"><i></i><i></i><i></i></span>
+      <b>旋律</b>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-shade"></div>
+      <div class="hero-copy reveal">
+        <p class="eyebrow">OUR LOVE, SINCE 2022</p>
+        <div class="hero-mark">Y <span>✦</span> W</div>
+        <h1>我把喜欢写进风里，<br><em>风吹过的地方都是你。</em></h1>
+        <p class="hero-sub">致我最偏爱、最珍贵、最想一起走很远很远的人</p>
+        <a class="hero-cta" href="#story">走进我们的故事 <span>↓</span></a>
+      </div>
+      <div class="hero-bottom">
+        <span>Y Z B</span><i></i><span>W Y Y</span>
+      </div>
+      <div class="scroll-note">SCROLL TO REMEMBER</div>
+    </section>
+
+    <section class="chapter intro" id="story">
+      <div class="chapter-number reveal">01</div>
+      <div class="intro-copy reveal">
+        <p class="kicker">从那一天，到每一个今天</p>
+        <h2>世界有很多人，<br>而我的世界里，<em>你最特别。</em></h2>
+        <p>遇见你以后，寻常日子忽然有了光。海边的风、跑过的终点、树荫下的夏天，都因为身边是你，变成了值得反复收藏的瞬间。</p>
+      </div>
+
+      <div class="counter-card reveal">
+        <div class="counter-glow"></div>
+        <p>我们已经相爱</p>
+        <strong id="daysTogether">0000</strong>
+        <span>天</span>
+        <div class="counter-detail">
+          <div><b id="hoursTogether">00</b><small>小时</small></div>
+          <div><b id="minutesTogether">00</b><small>分钟</small></div>
+          <div><b id="heartbeats">0</b><small>万次心动</small></div>
         </div>
-        <div class="footer">
-            <p>Made with ❤️ by <a href="https://github.com/Aaronyzb" target="_blank">Aaronyzb</a></p>
-        </div>
-    </div>
+        <p class="counter-foot">而我仍然觉得，每一天都像刚刚喜欢上你。</p>
+      </div>
+    </section>
 
-    <script>
-        // Function to calculate the number of days from a given start date to today in Beijing Time (UTC+8)
-        function calculateDays(startDate) {
-            const start = new Date(startDate);
+    <section class="memory-section" id="memories">
+      <div class="section-heading reveal">
+        <p class="kicker">THE WAY WE WERE</p>
+        <h2>时光会走远，<br><em>但爱过的瞬间不会。</em></h2>
+        <p>六张照片，六枚时间留下的书签。</p>
+      </div>
 
-            // Get the current date and time in UTC
-            const now = new Date();
+      <div class="film" aria-label="我们的照片回忆">
+        <article class="memory-card reveal">
+          <div class="photo"><img src="image1.jpg" alt="海边沙滩上两个人依偎的影子"></div>
+          <div class="memory-meta"><span>01</span><p><b>并肩的海风</b><small>我们把影子靠在一起，也把未来放在一起。</small></p></div>
+        </article>
+        <article class="memory-card reveal">
+          <div class="photo"><img src="image2.jpg" alt="沙滩上画着 YZB WYY 的爱心"></div>
+          <div class="memory-meta"><span>02</span><p><b>写给大海的秘密</b><small>潮汐可以带走脚印，带不走我们的名字。</small></p></div>
+        </article>
+        <article class="memory-card reveal">
+          <div class="photo"><img src="image3.jpg" alt="两人在南开大学校园马拉松合影"></div>
+          <div class="memory-meta"><span>03</span><p><b>一起跑向终点</b><small>不是每一程都轻松，但幸好每一程都有你。</small></p></div>
+        </article>
+        <article class="memory-card reveal">
+          <div class="photo"><img src="image4.jpg" alt="两个人可爱的日常自拍"></div>
+          <div class="memory-meta"><span>04</span><p><b>最可爱的日常</b><small>爱情不只在盛大的时刻，也在每个傻傻的表情里。</small></p></div>
+        </article>
+        <article class="memory-card reveal">
+          <div class="photo"><img src="image5.jpg" alt="两个人穿着旗袍和粉色上衣合照"></div>
+          <div class="memory-meta"><span>05</span><p><b>喜欢你的每一种模样</b><small>镜头按下快门，我在心里说了好多遍好看。</small></p></div>
+        </article>
+        <article class="memory-card reveal">
+          <div class="photo"><img src="image6.jpg" alt="树荫下两只手比出爱心"></div>
+          <div class="memory-meta"><span>06</span><p><b>把夏天圈进心里</b><small>阳光穿过树叶，而你穿过人海来到我身边。</small></p></div>
+        </article>
+      </div>
+      <p class="drag-hint">横向滑动，翻阅我们的时光 <span>→</span></p>
+    </section>
 
-            // Convert the current date and time to Beijing Time (UTC+8)
-            const beijingOffset = 8 * 60; // Offset in minutes for UTC+8
-            const localOffset = now.getTimezoneOffset(); // Local timezone offset in minutes
-            const beijingTime = new Date(now.getTime() + (beijingOffset + localOffset) * 60 * 1000);
+    <section class="reasons">
+      <div class="chapter-number reveal">02</div>
+      <div class="section-heading light reveal">
+        <p class="kicker">WHY IT IS ALWAYS YOU</p>
+        <h2>喜欢你的理由，<br><em>比星星还要多一点。</em></h2>
+      </div>
+      <div class="reason-grid">
+        <article class="reason reveal"><span>01</span><i>✦</i><h3>因为是你</h3><p>不是因为你恰好完美，而是因为你的每一种样子，都恰好让我心动。</p></article>
+        <article class="reason featured reveal"><span>02</span><i>☾</i><h3>因为安心</h3><p>你在身边的时候，热闹很好，安静也很好，连发呆都有了意义。</p></article>
+        <article class="reason reveal"><span>03</span><i>∞</i><h3>因为未来</h3><p>想到很久以后的生活，脑海里那些温柔的画面，主角一直都是你。</p></article>
+      </div>
+    </section>
 
-            const diffTime = Math.abs(beijingTime - start);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return diffDays;
-        }
+    <section class="letter-section" id="letter">
+      <div class="letter-photo reveal"><img src="image6.jpg" alt="我们的手在树荫下比出爱心"></div>
+      <article class="love-letter reveal">
+        <p class="kicker">A LETTER FOR WYY</p>
+        <h2>亲爱的 WYY：</h2>
+        <p>以前我总觉得，浪漫应该是烟花、鲜花和盛大的惊喜。后来才明白，真正的浪漫，是每次遇到好看的晚霞都想拍给你，是走在路上会下意识牵住你的手，是我计划未来时，自然而然把你写进每一页。</p>
+        <p>谢谢你来到我的世界，让我知道“我们”是一个多么温柔的词。</p>
+        <p>我不敢保证往后的每一天都完美，但我想认真保证：开心时陪你笑，难过时抱紧你，平淡时也永远站在你这一边。</p>
+        <p class="letter-end">故事还很长，<br>而我想一直、一直和你写下去。</p>
+        <div class="signature"><span>永远偏爱你的</span><b>YZB</b></div>
+      </article>
+    </section>
 
-        // Function to show the love page
-        function showLovePage() {
-            // Hide the home page with a fade-out effect
-            document.querySelector('.home-page').style.opacity = '0';
-            setTimeout(() => {
-                document.querySelector('.home-page').style.display = 'none';
-                // Show the love page with a fade-in effect
-                document.querySelector('.love-page').style.display = 'flex';
-                setTimeout(() => {
-                    document.querySelector('.love-page').style.opacity = '1';
-                    // Change the background color
-                    document.body.style.background = 'linear-gradient(135deg, #ffccff 25%, #ff99ff 50%, #ff66ff 75%)';
-                }, 10);
-            }, 500);
+    <section class="promise">
+      <div class="promise-content reveal">
+        <p class="kicker">ONE MORE LITTLE THING</p>
+        <h2>如果爱有形状，<br>它一定是<em>为你盛开的花海。</em></h2>
+        <p>点一下，让属于我们的花开满这里。</p>
+        <button id="bloomButton" class="bloom-button" type="button"><span>为 WYY 种下一片花海</span><i>✿</i></button>
+        <div class="bloom-message" id="bloomMessage" aria-live="polite">花会沿路盛开，我们也会一直相爱。</div>
+      </div>
+      <div class="flower-ground" id="flowerGround" aria-hidden="true"></div>
+    </section>
+  </main>
 
-            // Calculate and set the number of days
-            const startDate = '2024-04-01'; // Replace with the actual start date
-            const daysCount = calculateDays(startDate);
-            document.getElementById('days-count').textContent = daysCount;
-        }
+  <footer>
+    <div class="footer-heart">♡</div>
+    <p>TO WYY, WITH ALL MY LOVE</p>
+    <span>YZB × WYY · <span id="currentYear"></span></span>
+  </footer>
 
-        // Ensure DOM is fully loaded before attaching event listener
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('openLovePageButton').addEventListener('click', showLovePage);
-        });
-    </script>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="照片预览" hidden>
+    <button type="button" aria-label="关闭照片">×</button>
+    <img src="" alt="">
+    <p></p>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
